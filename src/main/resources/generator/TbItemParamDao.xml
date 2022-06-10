@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.TbItemParamDao">
+  <resultMap id="BaseResultMap" type="generate.TbItemParam">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="item_cat_id" jdbcType="BIGINT" property="itemCatId" />
+    <result column="param_data" jdbcType="VARCHAR" property="paramData" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="updated" jdbcType="TIMESTAMP" property="updated" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, item_cat_id, param_data, created, updated
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_item_param
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_item_param
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="generate.TbItemParam" useGeneratedKeys="true">
+    insert into tb_item_param (item_cat_id, param_data, created, 
+      updated)
+    values (#{itemCatId,jdbcType=BIGINT}, #{paramData,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
+      #{updated,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="generate.TbItemParam" useGeneratedKeys="true">
+    insert into tb_item_param
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemCatId != null">
+        item_cat_id,
+      </if>
+      <if test="paramData != null">
+        param_data,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="updated != null">
+        updated,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemCatId != null">
+        #{itemCatId,jdbcType=BIGINT},
+      </if>
+      <if test="paramData != null">
+        #{paramData,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="generate.TbItemParam">
+    update tb_item_param
+    <set>
+      <if test="itemCatId != null">
+        item_cat_id = #{itemCatId,jdbcType=BIGINT},
+      </if>
+      <if test="paramData != null">
+        param_data = #{paramData,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generate.TbItemParam">
+    update tb_item_param
+    set item_cat_id = #{itemCatId,jdbcType=BIGINT},
+      param_data = #{paramData,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
